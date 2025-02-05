@@ -35,8 +35,8 @@ A modern e-commerce platform for food lovers to explore, purchase, and review a 
 ### 🖥️ **Frontend Setup**  
 1. Clone the repository:  
    ```sh
-   git clone https://github.com/yourusername/food-shop.git
-   cd food-shop
+   git clone https://github.com/AUS8970/Food-Shop.git
+   cd Food-Shop
    ```
 2. Install dependencies:  
    ```sh
