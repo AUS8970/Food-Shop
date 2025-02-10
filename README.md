@@ -47,21 +47,21 @@ A modern e-commerce platform for food lovers to explore, purchase, and review a 
    npm run dev
    ```
 
-### 🌍 **Backend Setup**  
-1. Navigate to the server folder:  
+### 🌍 **Backend Setup**
+1. Navigate to the server folder:
    ```sh
    cd server
    ```
-2. Install backend dependencies:  
+2. Install backend dependencies:
    ```sh
    npm install
    ```
-3. Start the server:  
+3. Start the server:
    ```sh
    npm start
    ```
 
 ## 🔧 **Configuration**  
-- **Firebase Authentication**: Set up in the **Firebase Console** and add API keys.  
-- **MongoDB**: Use **MongoDB Atlas** for cloud storage or local MongoDB.  
-- **JWT Secret Key**: Store a strong secret key for authentication.  
+- **Firebase Authentication**: Set up in the **Firebase Console** and add API keys.
+- **MongoDB**: Use **MongoDB Atlas** for cloud storage or local MongoDB.
+- **JWT Secret Key**: Store a strong secret key for authentication.
