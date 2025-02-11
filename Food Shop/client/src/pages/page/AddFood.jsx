@@ -10,33 +10,6 @@ const AddFood = () => {
   const {user} = useAuth();
   const navigate = useNavigate();
 
-  // const handleAddJob = e => {
-  //   e.preventDefault();
-
-  //   const formData = new FormData(e.target);
-
-  //   fetch('http://localhost:5000/foods', {
-  //     method: 'POST',
-  //     headers: {
-  //       'content-type': 'application/json'
-  //     },
-  //     body:JSON.stringify(formData)
-  //   })
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     if(data.insertedId){
-  //       Swal.fire({
-  //         position: "top-end",
-  //         icon: "success",
-  //         title: "Job Added Successfully Done.",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //       navigate('/myFood');
-  //     }
-  //   })
-  // }
-
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -75,7 +48,7 @@ const AddFood = () => {
       food_owner: user.name,
     };
   
-    fetch('http://localhost:5000/foods', {
+    fetch(`${import.meta.env.VITE_Server_Host_Link}/foods`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newFood),
@@ -86,7 +59,7 @@ const AddFood = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Job Added Successfully Done.",
+            title: "Food Added Successfully Done.",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -96,8 +69,8 @@ const AddFood = () => {
   };
 
   return (
-    <div className='container mx-auto'>
-      <h1 className="text-3xl font-bold text-center my-6">Add Food</h1>
+    <div className='container mx-auto pt-28'>
+      <h1 className="text-3xl font-bold text-center">Add Food</h1>
       <form
         onSubmit={handleAddFood}
         className="max-w-xl mx-auto p-6 rounded-lg shadow-lg"
@@ -208,7 +181,7 @@ const AddFood = () => {
         </div>
         <button
           type="submit"
-          className="btn bg-yellow-600 hover:bg-yellow-700 text-white w-full"
+          className="btn bg-yellow-700 hover:bg-yellow-800 text-white w-full"
         >
           Add Food
         </button>

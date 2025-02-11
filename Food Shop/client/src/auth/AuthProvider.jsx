@@ -48,13 +48,13 @@ const AuthProvider = ({ children }) => {
       if(currentUser?.email){
         const user = { email: currentUser.email }
         
-        axios.post('https://localhost:5000/jwt', user, {withCredentials: true})
+        axios.post(`${import.meta.env.VITE_Server_Host_Link}/jwt`, user, {withCredentials: true})
         .then(res => {
           console.log('login', res.data);
           setLoading(false);
         });
       } else {
-        axios.post('https://localhost:5000/jwt', {}, {withCredentials: true})
+        axios.post(`${import.meta.env.VITE_Server_Host_Link}/jwt`, {}, {withCredentials: true})
         .then(res => {
           console.log('logout', res.data);
           setLoading(false)

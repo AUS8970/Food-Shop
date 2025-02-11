@@ -6,7 +6,7 @@ const MainBanner = () => {
     <div>
       <div className="hero min-h-screen">
         <div className="absolate w-full h-full object-cover">
-          <img src="https://i.ibb.co.com/4MLKv0C/pexels-chanwalrus-941861.jpg" alt="" />
+          <img className='w-full h-full' src="https://i.ibb.co.com/4MLKv0C/pexels-chanwalrus-941861.jpg" alt="" />
         </div>
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-neutral-content text-center">
@@ -20,7 +20,7 @@ const MainBanner = () => {
             <p className="mb-5">
             Welcome to our food shop, where healthy meets tasty discover the best meals crafted just for you!
             </p>
-            <Link to={'/allFoods'} className="btn"> All Foods </Link>
+            <Link to={'/allFoods'} className="btn bg-yellow-700 border-none hover:bg-yellow-800 text-white"> All Foods </Link>
           </div>
         </div>
       </div>

@@ -8,7 +8,6 @@ import { CiDark, CiLight } from 'react-icons/ci';
 const Navber = () => {
 
   // TODO 1: dynamic theme light and dark mode
-  // TODO 2: 
 
   const { user, signOutUser } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -24,15 +23,21 @@ const Navber = () => {
   };
 
   const links = <>
-    <li><NavLink to={'/'}> Home </NavLink></li>
-    <li><NavLink to={'/allFoods'}> All Foods </NavLink></li>
-    <li><NavLink to={'/gallery'}> Gallery </NavLink></li>
+    <li className='text-white'><NavLink className={({ isActive }) => isActive ? "text-black bg-white hover:bg-gray-100" : ""} to={'/'}> Home </NavLink></li>
+    <li className='text-white'><NavLink className={({ isActive }) => isActive ? "text-black bg-white hover:bg-gray-100" : ""} to={'/allFoods'}> All Foods </NavLink></li>
+    <li className='text-white'><NavLink className={({ isActive }) => isActive ? "text-black bg-white hover:bg-gray-100" : ""} to={'/gallery'}> Gallery </NavLink></li>
+    { user ? <>
+      <li className='text-white'><NavLink className={({ isActive }) => isActive ? "text-black bg-white hover:bg-gray-100" : ""} to={'/myOrder'}> My Orders </NavLink></li>
+      <li className='text-white'><NavLink className={({ isActive }) => isActive ? "text-black bg-white hover:bg-gray-100" : ""} to={'/myFood'}> My Foods </NavLink></li>
+      <li className='text-white'><NavLink className={({ isActive }) => isActive ? "text-black bg-white hover:bg-gray-100" : ""} to={'/addFood'}> Add Food </NavLink></li>
+      </> : <></>
+    }
   </>
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar fixed bg-black bg-opacity-45 px-3 md:px-10 z-10">
       <div className="navbar-start">
-        <div className="dropdown">
+        <div className="dropdown text-white ">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,19 +52,17 @@ const Navber = () => {
                 d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          <ul tabIndex={0} className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-black bg-opacity-50 gap-2">
             { links }
           </ul>
         </div>
-        <Link to={'/'} className="btn btn-ghost text-2xl"> 
-          <img className='w-12' src="../../../src/assets/food-drink-logo-white-background_1277164-19895-removebg-preview.png" alt="" />
-          <span className="font-roboto text-2xl"> Food Shop </span>
+        <Link to={'/'} className="flex items-center gap-1 text-2xl w-56">
+          <img className='w-10' src="../../../src/assets/food-drink-logo-white-background_1277164-19895-removebg-preview.png" alt="" />
+          <span className="font-roboto dark:text-white font-semibold text-2xl"> Food Shop </span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal gap-2 px-1">
           {links}
         </ul>
       </div>
@@ -76,19 +79,17 @@ const Navber = () => {
         </button>
         {
           user ? <>
+
             <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="btn btn-circle">
                 <img className='w-14 rounded-full' src={user.photoURL} alt="" />
               </div>
               <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow ">
-                <li className=''><NavLink to={'/myFood'}> My Foods </NavLink></li>
-                <li className=''><NavLink to={'/addFood'}> Add food </NavLink></li>
-                <li className=''><NavLink to={'/myOrder'}> My Orders </NavLink></li>
-                <li onClick={handleSignOutUser} className="btn bg-yellow-800 text-white"> Log Out </li>
+                <li onClick={handleSignOutUser} className="btn bg-yellow-600 hover:bg-yellow-700 text-white"> Log Out </li>
               </ul>
             </div>
           </> : <>
-            <Link to={'/logIn'} className="btn bg-yellow-600 text-white"> Log In </Link>
+            <Link to={'/logIn'} className="btn bg-yellow-600 border-none hover:bg-yellow-700 text-white"> Log In </Link>
           </>
         }
       </div>

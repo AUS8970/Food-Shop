@@ -9,7 +9,7 @@ const MyFood = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/foods?email=${user.email}`)
+    fetch(`${import.meta.env.VITE_Server_Host_Link}/foods?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => setMyFoods(data));
   }, [user.email]);
@@ -17,7 +17,7 @@ const MyFood = () => {
   useEffect(() => {
     const fetchMyFoods = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/foods?email=${user?.email}`, {
+        const response = await fetch(`${import.meta.env.VITE_Server_Host_Link}/foods?email=${user?.email}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -46,9 +46,9 @@ const MyFood = () => {
     return <div className="text-center">No foods found. You haven't added any foods yet.</div>;
   }
 
-  // TODO 1: user added all food show (data by filter user email), Each all food row/card (food img, name, price, etc, an update button/icon (navigate Update form page/modal (food info and an update button))).
   return (
-    <div>
+    <div className='pt-28 px-10 min-h-screen'>
+      <h1 className="text-3xl font-bold text-center mb-6 "> My Foods </h1>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -81,7 +81,7 @@ const MyFood = () => {
                   <td> {food.origin} </td>
                   <td> {food.quantity} </td>
                   <th>
-                    <Link food={food} to={`/singaleFood/${food._id}`} className="btn btn-ghost btn-xs"> Details </Link>
+                    <Link food={food} to={`/singaleFood/${food._id}`} className="btn bg-yellow-700 hover:bg-yellow-800 text-white btn-ghost btn-xs"> Details </Link>
                   </th>
                 </tr>
               ))

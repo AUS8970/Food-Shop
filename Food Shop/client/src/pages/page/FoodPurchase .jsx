@@ -23,7 +23,7 @@ const FoodPurchase = () => {
     // Fetch food details
     const fetchFoodDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/foods/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_Server_Host_Link}/foods/${id}`);
         const data = await response.json();
         setFood(data);
         setLoading(false);
@@ -44,6 +44,7 @@ const FoodPurchase = () => {
     const purchaseData = {
       foodId: food._id,
       foodName: food.name,
+      foodImage: food.image,
       price: food.price,
       quantity,
       buyerName: user.name,
@@ -52,18 +53,19 @@ const FoodPurchase = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:5000/purchases`, {
+      const response = await fetch(`${import.meta.env.VITE_Server_Host_Link}/purchase`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(purchaseData),
       });
 
       if (response.ok) {
-        await fetch(`http://localhost:5000/foods/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_Server_Host_Link}/foods/${id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ availableQuantity: food.quantity - quantity }),
         });
+        console.log(res)
         toast.success("Purchase successful!");
         navigate("/myOrder");
       } else {
@@ -94,12 +96,12 @@ const FoodPurchase = () => {
   const isOutOfStock = food.quantity === 0;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <div className="container mx-auto px-4 pt-20">
+      <div className="max-w-2xl mx-auto p-6 shadow-lg rounded-lg">
         <img
           src={food.image}
           alt={food.name}
-          className="rounded-lg w-full object-cover mb-6"
+          className="rounded-lg w-full max-h-96 object-cover mb-6"
         />
         <h1 className="text-3xl font-bold">{food.name}</h1>
         <p className="text-gray-600 mt-4">{food.description}</p>
@@ -143,7 +145,7 @@ const FoodPurchase = () => {
             className={`btn mt-6 w-full ${
               user.email === food.owner_email
                 ? "cursor-not-allowed bg-gray-400"
-                : "bg-green-600 hover:bg-green-700 text-white"
+                : "bg-yellow-700 hover:bg-yellow-800 text-white"
             }`}
           >
             Confirm Purchase

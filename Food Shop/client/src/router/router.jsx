@@ -67,7 +67,7 @@ const router = createBrowserRouter([
       {
         path: "/singaleFood/:id",
         element: <SingleFood />,
-        loader: ({params}) => fetch(`http://localhost:5000/foods/${params.id}`)
+        loader: ({params}) => fetch(`${import.meta.env.VITE_Server_Host_Link}/foods/${params.id}`)
       },
       {
         path: "/gallery",

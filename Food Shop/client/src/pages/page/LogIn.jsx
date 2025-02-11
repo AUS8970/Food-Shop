@@ -2,14 +2,13 @@ import React from 'react';
 import useAuth from '../../hooks/useAuth';
 import GoogleSignIn from '../shared/GoogleSignIn';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const LogIn = () => {
 
-  // TODO 1: add navigate register page link
-  // TODO 2: google signin link
-
   const { logInUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogIn = e => {
     e.preventDefault();
@@ -22,17 +21,23 @@ const LogIn = () => {
     logInUser(email, password)
     .then(res => {
       console.log(res.user)
-      fetch('http://localhost:5000/login', {
+      fetch(`${import.meta.env.VITE_Server_Host_Link}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify(email, password),
       })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+          toast("SUCCESS:", data)
+          console.log(data)
+        })
         .catch(err => console.log(err));
     })
-    .then(err => console.log(err))
+    .then(err => {
+      toast("ERROR:", err)
+      console.log(err)
+    })
   }
 
   return (
@@ -56,10 +61,10 @@ const LogIn = () => {
           </label>
         </div>
         <div className="form-control mt-6">
-          <button className="btn bg-yellow-800 text-white"> Log In </button>
+          <button className="btn bg-yellow-700 hover:bg-yellow-800 text-white"> Log In </button>
         </div>
       </form>
-      <h2 className='text-center mb-5'> New user? <Link to={'/register'} className="text-yellow-800 font-semibold"> Register Here </Link></h2>
+      <h2 className='text-center mb-5'> New user? <Link to={'/register'} className="text-yellow-700 font-semibold"> Register Here </Link></h2>
     </div>
   );
 };

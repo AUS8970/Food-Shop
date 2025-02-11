@@ -74,7 +74,7 @@ const TopFoods = () => {
   ];
 
   useEffect(() => {
-    fetch('http://localhost:5000/foods')
+    fetch(`${import.meta.env.VITE_Server_Host_Link}/foods`)
     .then(res => res.json())
     .then(data => setFoods(data.slice(0, 8)))
   }, []);
@@ -84,23 +84,18 @@ const TopFoods = () => {
   // TODO 2: card show about purchase count
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-10 flex flex-col items-center justify-center">
       <h2 className="text-3xl font-bold text-center py-8 mt-3"> Top Foods </h2>
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-6 '>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5'>
         {foods.map((food, idx) => (
           <div key={idx} className="relative group">
-            <Link 
+            <Link
               to={`/singaleFood/${food._id}`} className=''>
-              <figure className="w-full h-64">
-                <img
-                  className='rounded-[70px] w-full h-full'
-                  src={food.image}
-                  alt="Foods" 
-                />
+              <figure className="w-72 h-64">
+                <img className='rounded-3xl w-full h-full' src={food.image} alt={food.name} />
               </figure>
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex flex-col gap-5 items-center justify-center text-white transition duration-300 rounded-[70px]">
+              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex flex-col gap-5 items-center w-72 h-64 justify-center text-white transition duration-300 rounded-3xl">
                 <h2 className="text-center text-2xl font-semibold"> {food.name} </h2>
-                
                 <div className="card-actions justify-center">
                   <Link to={`/singaleFood/${food._id}`} className="btn bg-yellow-700 hover:bg-yellow-600 text-white border-none"> Details </Link>
                 </div>
@@ -110,7 +105,7 @@ const TopFoods = () => {
         ))}
       </div>
       <div className="flex items-center justify-center my-10">
-        <Link to={'/allFoods'} className='btn bg-yellow-700 hover:bg-yellow-600 text-white'> Go to All Food Page </Link>
+        <Link to={'/allFoods'} className='btn border-yellow-700 bg-white hover:bg-yellow-700 bg-transparent text-yellow-700 hover:text-white'> Go to All Food Page </Link>
       </div>
     </div>
   );

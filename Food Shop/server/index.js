@@ -8,19 +8,11 @@ require('dotenv').config();
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId} = require("mongodb");
 
-app.use(
-  cors({
-    origin: [
-      'http://localhost:5173',
-      'https://food-shop-aus.web.app',
-    ],
-    credentials: true,
-  })
-);
+app.use(cors({origin: ['http://localhost:5173', 'https://food-shop-aus.web.app'], credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.l3m5v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `${process.env.DB_URI}`;
 
 const secretKey = process.env.ACCESS_TOKEN_SECRET;
 
@@ -206,10 +198,8 @@ async function run() {
       res.send(result);
     });
 
-    app.post("/purchase", verifyToken, async (req, res) => {
+    app.post("/purchase", async (req, res) => {
       const { foodId, buyerEmail } = req.body;
-    
-      // Fetch the Food by ID
       const food = await foodsCollection.findOne({ _id: new ObjectId(foodId) });
     
       if (!food) {
@@ -252,7 +242,7 @@ async function run() {
       }
     
       try {
-        const orders = await ordersCollection.find({ buyerEmail: email }).toArray();
+        const orders = await foodApplicationCollection.find({ buyerEmail: email }).toArray();
         res.status(200).json(orders);
       } catch (error) {
         console.error(error);
@@ -264,7 +254,7 @@ async function run() {
       const { id } = req.params;
     
       try {
-        const result = await ordersCollection.deleteOne({ _id: new ObjectId(id) });
+        const result = await foodApplicationCollection.deleteOne({ _id: new ObjectId(id) });
         if (result.deletedCount === 1) {
           res.status(200).json({ message: "Order deleted successfully" });
         } else {

@@ -6,7 +6,7 @@ const PrivateRoute = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const response = await fetch("http://localhost:5000/private-route", {
+      const response = await fetch(`${import.meta.env.VITE_Server_Host_Link}/private-route`, {
         method: "GET",
         credentials: "include",
       });

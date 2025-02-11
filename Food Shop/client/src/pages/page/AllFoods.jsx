@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import Banner from '../shared/Banner';
 
 const AllFoods = () => {
@@ -13,8 +14,8 @@ const AllFoods = () => {
     const fetchFoods = async () => {
       setLoading(true);
       const endpoint = search
-        ? `http://localhost:5000/foods?search=${search}`
-        : "http://localhost:5000/foods";
+        ? `${import.meta.env.VITE_Server_Host_Link}/foods?search=${search}`
+        : `${import.meta.env.VITE_Server_Host_Link}/foods`;
       try {
         const response = await fetch(endpoint);
         const data = await response.json();
@@ -70,7 +71,7 @@ const AllFoods = () => {
       </div>
 
       {/* Foods */}
-      <div className="container mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+      <div className="container mx-auto px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {foods.length > 0 ? (
           currentFoods.map((food) => (
             <div key={food._id} className="card rounded-[50px] overflow-hidden">
@@ -85,7 +86,7 @@ const AllFoods = () => {
                 <p> {food.description} </p>
                 <div className="flex items-center justify-between">
                   <p className="text-start text-gray-600"><span className='font-bold'> Price: </span> ${food.price}</p>
-                  <Link to={`/singaleFood/${food._id}`} className="btn bg-amber-600 hover:bg-amber-700 text-white"> Details </Link>
+                  <Link to={`/singaleFood/${food._id}`} className="btn bg-yellow-700 hover:bg-yellow-800 text-white"> Details </Link>
                 </div>
               </div>
             </div>
@@ -96,20 +97,21 @@ const AllFoods = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-6 gap-2">
+      <div className="flex flex-wrap justify-center mt-6 gap-2 px-10">
         <button
-          className="btn"
+          className="btn rounded-full bg-yellow-700 hover:bg-yellow-800 text-white"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          Previous
+          <GrLinkPrevious />
+          {/* Previous */}
         </button>
         {[...Array(totalPages)].map((_, index) => (
           <button
             key={index}
             onClick={() => handlePageChange(index + 1)}
             className={`btn px-5 rounded-full ${currentPage === index + 1
-              ? 'bg-amber-600 text-white'
+              ? 'bg-yellow-700 hover:bg-yellow-800 text-white'
               : 'bg-gray-300 hover:bg-gray-400 text-gray-800'
               }`}
           >
@@ -117,11 +119,11 @@ const AllFoods = () => {
           </button>
         ))}
         <button
-          className="btn"
+          className="btn rounded-full bg-yellow-700 hover:bg-yellow-800 text-white"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          Next
+          <GrLinkNext />
         </button>
       </div>
     </div>

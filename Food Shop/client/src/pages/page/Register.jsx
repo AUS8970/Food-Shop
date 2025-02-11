@@ -7,9 +7,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
-  // TODO 1: navigate log in page link
-  // TODO 2: google signin link
-
   const navigate = useNavigate();
   const { createUser, setUser, upadteUser } = useAuth();
 
@@ -67,10 +64,10 @@ const Register = () => {
           </div>
         </div>
         <div className="form-control mt-6">
-          <button className="btn bg-yellow-800 text-white"> Register </button>
+          <button className="btn bg-yellow-700 hover:bg-yellow-800 text-white"> Register </button>
         </div>
       </form>
-      <h2 className='text-center mb-5'> Already have an account? <Link to={'/logIn'} className="text-yellow-800 font-semibold"> Login Here </Link></h2>
+      <h2 className='text-center mb-5'> Already have an account? <Link to={'/logIn'} className="text-yellow-700 font-semibold"> Login Here </Link></h2>
     </div>
   );
 };

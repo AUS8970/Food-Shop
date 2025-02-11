@@ -7,7 +7,7 @@ const cardFoodLoader = async () => {
   const storedCartIds = Object.keys(storedCart);
   console.log(storedCartIds);
   
-  const loadedFoods = await fetch('http://localhost:5000/productByIds', {
+  const loadedFoods = await fetch(`${import.meta.env.VITE_Server_Host_Link}/productByIds`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json'

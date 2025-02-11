@@ -15,7 +15,7 @@ const GalleryPage = () => {
   const fetchGalleryItems = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/gallery?page=${page}&limit=12`);
+      const response = await fetch(`${import.meta.env.VITE_Server_Host_Link}/gallery?page=${page}&limit=12`);
       const data = await response.json();
       setGalleryItems((prev) => [...prev, ...data]); // Append new images
       setLoading(false);
