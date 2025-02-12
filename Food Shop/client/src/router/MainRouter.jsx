@@ -4,7 +4,7 @@ import Navber from "../pages/shared/Navber";
 
 const MainRouter = () => {
   return (
-    <div>
+    <div className="font-roboto">
       <Navber />
       <Outlet />
       <Footer />

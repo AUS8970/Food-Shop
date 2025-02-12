@@ -9,6 +9,7 @@ const AllFoods = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [itemsPerPage] = useState(9);
+  const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
     const fetchFoods = async () => {
@@ -18,6 +19,7 @@ const AllFoods = () => {
         : `${import.meta.env.VITE_Server_Host_Link}/foods`;
       try {
         const response = await fetch(endpoint);
+        console.log(response)
         const data = await response.json();
         setFoods(data);
       } catch (error) {
@@ -30,11 +32,18 @@ const AllFoods = () => {
     fetchFoods();
   }, [search]);
 
+  const handleSortChange = (order) => {
+    setSortOrder(order);
+  };
+
+  const sortedFoods = [...foods].sort((a, b) => {
+    return sortOrder === "asc" ? a.price - b.price : b.price - a.price;
+  });
+
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentFoods = foods.slice(indexOfFirstItem, indexOfLastItem);
-
+  const currentFoods = sortedFoods.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(foods.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
@@ -54,15 +63,31 @@ const AllFoods = () => {
       />
 
       {/* Search */}
-      <div className="flex items-center justify-center my-4 mb-6">
-        <span className="pr-2"> Search food: </span>
-        <input
-          type="text"
-          placeholder="Search for foods..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="border rounded px-3 py-2 w-64"
-        />
+      <div className="container mx-auto flex items-center justify-between my-4 mb-6 px-10">
+        <h1 className="text-3xl font-bold"> All Foods </h1>
+        <div className="flex gap-5 items-center">
+          <div className="">
+            {/* <span className="pr-2"> Search food: </span> */}
+            <input
+              type="text"
+              placeholder="Search for foods..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="border rounded-full  px-3 py-2 w-64"
+            />
+          </div>
+          <div>
+            {/* <span className="pr-2">Sort by price:</span> */}
+            <select
+              value={sortOrder}
+              onChange={(e) => handleSortChange(e.target.value)}
+              className="border rounded-full  px-3 py-2"
+            >
+              <option value="asc">Low to High</option>
+              <option value="desc">High to Low</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       {/* Loading */}

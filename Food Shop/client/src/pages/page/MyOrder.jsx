@@ -61,7 +61,7 @@ const MyOrders = () => {
 
   if (orders.length === 0) {
     return (
-      <div className="text-center mt-10">
+      <div className="text-center pt-28 min-h-screen">
         <h1 className="text-2xl font-semibold">You have no orders yet.</h1>
       </div>
     );

@@ -9,10 +9,10 @@ const MyFood = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_Server_Host_Link}/foods?email=${user.email}`)
+    fetch(`${import.meta.env.VITE_Server_Host_Link}/foods?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setMyFoods(data));
-  }, [user.email]);
+  }, [user?.email]);
 
   useEffect(() => {
     const fetchMyFoods = async () => {
@@ -38,13 +38,13 @@ const MyFood = () => {
     }
   }, [user?.email]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // } 
 
-  if (!myFoods.length) {
-    return <div className="text-center">No foods found. You haven't added any foods yet.</div>;
-  }
+  // if (!myFoods.length) {
+  //   return <div className="text-center">No foods found. You haven't added any foods yet.</div>;
+  // }
 
   return (
     <div className='pt-28 px-10 min-h-screen'>
@@ -88,6 +88,13 @@ const MyFood = () => {
             }
           </tbody>
         </table>
+
+        <div className="container mx-auto text-center pt-5">
+          {loading && <span className="loading loading-ring loading-lg"></span>}
+        </div>
+        <div className="container mx-auto text-center pt-5">
+          {!myFoods.length && <span className="text-center"> No foods found. You haven't added any foods yet. </span>}
+        </div>
       </div>
     </div>
   );
