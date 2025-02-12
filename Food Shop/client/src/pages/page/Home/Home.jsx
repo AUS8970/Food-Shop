@@ -5,7 +5,7 @@ import Contact from './Contact';
 
 const Home = () => {
   return (
-    <div>
+    <div className='flex flex-col gap-10'>
       <MainBanner />
       <TopFoods />
       <Contact />
