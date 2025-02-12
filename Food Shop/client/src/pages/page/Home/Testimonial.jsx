@@ -9,7 +9,7 @@ const testimonials = [
     review:
       "The food was absolutely delicious! The flavors were well-balanced, and every bite was a delight. The ambiance of the restaurant added to the experience, making it even more enjoyable. Highly recommended!",
     rating: 5,
-    image: "/rahul.jpg",
+    image: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
   },
   {
     name: "Tahsin Ahmed",
@@ -17,7 +17,7 @@ const testimonials = [
     review:
       "I ordered a pizza, and it was just perfect! The crust was crispy, the cheese was melted beautifully, and the toppings were fresh. I will definitely order again. The delivery was also super fast!",
     rating: 4,
-    image: "/tahsin.jpg",
+    image: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
   },
   {
     name: "Mahin Khan",
@@ -25,7 +25,7 @@ const testimonials = [
     review:
       "The burger and french fries were outstanding! The burger was juicy, and the fries were crispy and perfectly salted. The quality of the ingredients was evident in every bite. Amazing experience!",
     rating: 5,
-    image: "/mahin.jpg",
+    image: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
   },
   {
     name: "Rubaiya Hasan",
@@ -33,7 +33,7 @@ const testimonials = [
     review:
       "The restaurant's environment was clean, cozy, and welcoming. The staff was very polite and attentive. I had a great time enjoying my meal, and I appreciate their excellent service. Will visit again soon!",
     rating: 4,
-    image: "/rubaiya.jpg",
+    image: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
   },
 ];
 
@@ -51,19 +51,20 @@ const TestimonialSlider = () => {
   };
 
   return (
-    <div className="bg-blue-50 py-16 px-4 flex flex-col items-center">
+    <div className="px-4 flex flex-col items-center">
       <h2 className="text-3xl font-bold text-gray-800 mb-8">
-        🍽️ What Our Customers Say
+        What Our Customers Say
       </h2>
-      <div className="relative w-full max-w-lg bg-white p-6 rounded-lg shadow-md text-center">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-          >
+      <AnimatePresence mode="wait">
+        <motion.div 
+          key={currentIndex}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.5 }} 
+          className="relative w-full max-w-2xl bg-yellow-50 p-6 rounded-lg shadow-md text-center"
+        >
+          <div>
             <p className="text-gray-700 mb-4">{testimonials[currentIndex].review}</p>
             <div className="flex justify-center mb-2">
               {[...Array(5)].map((_, i) => (
@@ -86,9 +87,9 @@ const TestimonialSlider = () => {
               <h3 className="font-bold">{testimonials[currentIndex].name}</h3>
               <p className="text-gray-500">{testimonials[currentIndex].role}</p>
             </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
       <div className="flex justify-center gap-6 mt-6">
         <button
           onClick={prevTestimonial}
